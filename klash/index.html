@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Videoify Klash | Creator Studio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #0f0f0f; color: #ffffff; font-family: 'Inter', sans-serif; }
+        .sidebar { width: 240px; background-color: #1e1e1e; height: 100vh; position: fixed; }
+        .main-content { margin-left: 240px; padding: 40px; }
+        .card { background-color: #282828; border-radius: 8px; padding: 20px; border: 1px solid #3e3e3e; }
+        .btn-primary { background-color: #3ea6ff; color: #000; font-weight: bold; padding: 10px 20px; border-radius: 4px; transition: 0.2s; }
+        .btn-primary:hover { background-color: #65b8ff; }
+        input { background: #121212; border: 1px solid #3e3e3e; color: white; padding: 8px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar flex flex-col p-4 border-r border-gray-800">
+        <h1 class="text-xl font-bold mb-8 text-blue-400">Videoify Klash</h1>
+        <nav class="space-y-4">
+            <div class="text-gray-400 hover:text-white cursor-pointer">Dashboard</div>
+            <div class="text-gray-400 hover:text-white cursor-pointer font-bold border-l-4 border-blue-400 pl-2">Content</div>
+            <div class="text-gray-400 hover:text-white cursor-pointer">Analytics</div>
+            <div class="text-gray-400 hover:text-white cursor-pointer">Settings</div>
+        </nav>
+    </div>
+
+    <div class="main-content">
+        <header class="flex justify-between items-center mb-10">
+            <h2 class="text-2xl font-semibold">Channel content</h2>
+            <div class="flex gap-4">
+                <button class="bg-transparent border border-gray-600 px-4 py-2 rounded">Create</button>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-3 gap-6 mb-10">
+            <div class="card text-center">
+                <p class="text-gray-400">Total Views</p>
+                <p class="text-3xl font-bold">142,059</p>
+            </div>
+            <div class="card text-center">
+                <p class="text-gray-400">Subscribers</p>
+                <p class="text-3xl font-bold">1,204</p>
+            </div>
+            <div class="card text-center">
+                <p class="text-gray-400">Active Projects</p>
+                <p class="text-3xl font-bold">12</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3 class="text-lg font-bold mb-4">Support & Troubleshooting</h3>
+            <p class="text-gray-400 mb-6">Need help with a specific upload? Enter the Video ID below to contact the Videoify team.</p>
+            
+            <div class="flex items-center gap-4">
+                <div class="flex flex-col">
+                    <label class="text-xs uppercase text-gray-500 mb-1">Video ID</label>
+                    <input type="text" id="videoId" placeholder="e.g. VK-8821" value="VK-7742">
+                </div>
+                <button onclick="sendSupportEmail()" class="btn-primary mt-5">
+                    Send Support Email
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function sendSupportEmail() {
+            const videoId = document.getElementById('videoId').value;
+            const recipient = "aerohutch@outlook.de";
+            
+            if (!videoId) {
+                alert("Please enter a Video ID first.");
+                return;
+            }
+
+            const subject = `Support for video [ID: ${videoId}]`;
+            const body = `Hi Videoify Support,\n\nI am reaching out regarding my video with ID: ${videoId}.\n\n[Please describe your issue here]`;
+
+            // Open the user's mail client
+            window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        }
+    </script>
+</body>
+</html>
