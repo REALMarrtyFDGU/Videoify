@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Videoify Klash | Dub Showcase (BETA)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0f0f0f;
+            color: #f1f1f1;
+            font-family: 'Inter', sans-serif;
+        }
+        .glass-card {
+            background: rgba(30, 30, 30, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .text-gradient {
+            background: linear-gradient(to right, #3ea6ff, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .step-number {
+            background: rgba(62, 166, 255, 0.1);
+            color: #3ea6ff;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .language-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 12px;
+        }
+        .tech-pill {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #888;
+        }
+        .beta-badge {
+            background: #3ea6ff;
+            color: #000;
+            font-size: 10px;
+            font-weight: 900;
+            padding: 2px 6px;
+            border-radius: 4px;
+            vertical-align: middle;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-20">
+
+    <!-- Navigation -->
+    <nav class="p-6 flex justify-between items-center max-w-6xl mx-auto">
+        <div class="flex items-center gap-2">
+            <div class="w-8 h-8 bg-blue-500 rounded flex items-center justify-center font-bold text-black italic">VK</div>
+            <span class="font-bold text-xl tracking-tight">VIDEOIFY <span class="text-blue-500">KLASH</span><span class="beta-badge">BETA</span></span>
+        </div>
+        <div class="hidden md:flex gap-4">
+            <span class="tech-pill">Google Gemini™</span>
+            <span class="tech-pill">Google Translate™</span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="max-w-4xl mx-auto text-center py-20 px-6">
+        <div class="inline-block px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-4">
+            Current Status: Beta Testing Phase
+        </div>
+        <h1 class="text-5xl md:text-6xl font-extrabold mb-6">
+            Surgical Isolation. <br><span class="text-gradient">Automated Dubbing.</span>
+        </h1>
+        <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+            A streamlined localization workflow leveraging advanced AI transcription, cloud-based audio isolation, and automated translation.
+        </p>
+    </header>
+
+    <!-- Technology Showcase -->
+    <section class="max-w-6xl mx-auto px-6 mb-24">
+        <div class="grid md:grid-cols-3 gap-12 items-start">
+            <div class="space-y-8 md:col-span-2">
+                <h2 class="text-3xl font-bold">The Localization Stack</h2>
+                
+                <div class="flex gap-4">
+                    <div class="step-number">1</div>
+                    <div>
+                        <h3 class="font-bold text-lg">Online AI Muting</h3>
+                        <p class="text-gray-400">We utilize a specialized online AI application to surgically isolate the original dialogue track. This cloud-based process mutes the source speech while keeping all background foley, music, and atmosphere perfectly intact.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="step-number">2</div>
+                    <div>
+                        <h3 class="font-bold text-lg">Transcription & Translation</h3>
+                        <p class="text-gray-400">Accurate subtitles are generated via <span class="text-white font-semibold">Google Gemini™</span> and then localized through <span class="text-white font-semibold">Google Translate™</span> to ensure the core message remains intact across languages.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="step-number">3</div>
+                    <div>
+                        <h3 class="font-bold text-lg">Voicertool Synthesis</h3>
+                        <p class="text-gray-400">Localized audio tracks are produced using the <span class="text-blue-400 font-semibold">Voicertool</span> engine. This provides a functional, robotic synthesis designed for clarity and efficiency rather than emotional performance.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Possible Dubs Widget -->
+            <div class="glass-card p-6 rounded-3xl border-blue-500/20 shadow-2xl">
+                <div class="mb-6">
+                    <h3 class="font-bold text-xl mb-1">Available Dubs</h3>
+                    <p class="text-xs text-gray-500">Global support for project <span class="text-blue-400 font-mono">LTc5NjYzMjk</span></p>
+                </div>
+                
+                <div id="dubs-list" class="language-grid">
+                    <!-- Dynamic Content -->
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-white/5">
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center text-[10px] text-gray-500">
+                            <span>Isolation</span>
+                            <span class="text-white">External AI Cloud</span>
+                        </div>
+                        <div class="flex justify-between items-center text-[10px] text-gray-500">
+                            <span>Transcription</span>
+                            <span class="text-white">Gemini™</span>
+                        </div>
+                        <div class="flex justify-between items-center text-[10px] text-gray-500">
+                            <span>Translation</span>
+                            <span class="text-white">Google Translate™</span>
+                        </div>
+                        <div class="flex justify-between items-center text-[10px] text-gray-500">
+                            <span>Synthesis Style</span>
+                            <span class="text-blue-400">Robotic / Voicertool</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="mt-32 text-center text-gray-600 text-[10px] border-t border-white/5 pt-10">
+        <p class="mb-2">&copy; 2026 Videoify Klash Studio (BETA). Google Gemini and Google Translate are trademarks of Google LLC.</p>
+        <p>Audio processing uses external AI tools. Speech synthesis provided by Voicertool.</p>
+    </footer>
+
+    <script>
+        const possibleDubs = [
+            { "lang": "Spanish", "flag": "🇲🇽", "code": "MX" },
+            { "lang": "Portugese", "flag": "🇧🇷", "code": "BR" },
+            { "lang": "Dutch", "flag": "🇳🇱", "code": "NL" },
+            { "lang": "English", "flag": "🇺🇸", "code": "EN" }
+        ];
+
+        const container = document.getElementById('dubs-list');
+        possibleDubs.forEach(dub => {
+            const div = document.createElement('div');
+            div.className = "bg-white/5 p-3 rounded-xl border border-white/5 flex flex-col items-center hover:border-blue-500/50 transition-all cursor-default group";
+            div.innerHTML = `
+                <span class="text-2xl mb-2 group-hover:scale-110 transition-transform">${dub.flag}</span>
+                <span class="text-[10px] font-bold uppercase tracking-widest text-gray-500 group-hover:text-blue-400">${dub.lang}</span>
+            `;
+            container.appendChild(div);
+        });
+    </script>
+</body>
+</html>
