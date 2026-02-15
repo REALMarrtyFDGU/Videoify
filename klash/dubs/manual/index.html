@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual Dubbing | Videoify Klash</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0f0f0f;
+            color: #f1f1f1;
+            font-family: 'Inter', sans-serif;
+        }
+        .glass-card {
+            background: rgba(30, 30, 30, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .text-gradient {
+            background: linear-gradient(to right, #3ea6ff, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .btn-glow {
+            box-shadow: 0 0 20px rgba(62, 166, 255, 0.3);
+        }
+        .feature-icon {
+            background: linear-gradient(135deg, rgba(62, 166, 255, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- Navigation -->
+    <nav class="p-6 flex justify-between items-center max-w-6xl mx-auto">
+        <div class="flex items-center gap-2">
+            <a href="showcase.html" class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-blue-500 rounded flex items-center justify-center font-bold text-black italic">VK</div>
+                <span class="font-bold text-xl tracking-tight uppercase">Manual <span class="text-blue-500">Dubbing</span></span>
+            </a>
+        </div>
+        <a href="showcase.html" class="text-xs text-gray-500 hover:text-white transition">← Back to Showcase</a>
+    </nav>
+
+    <!-- Hero -->
+    <section class="max-w-4xl mx-auto px-6 py-20 text-center">
+        <h1 class="text-5xl font-extrabold mb-6 tracking-tight">
+            Human Emotion. <br><span class="text-gradient">Professional Precision.</span>
+        </h1>
+        <p class="text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed mb-10">
+            For projects that demand more than robotic synthesis. We pair our surgical AI isolation with professional human voice talent to deliver world-class dubs.
+        </p>
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <a href="index.html" class="btn-glow bg-blue-500 hover:bg-blue-400 text-black font-bold px-10 py-4 rounded-full transition-all text-lg">
+                Contact Support for Quote
+            </a>
+        </div>
+    </section>
+
+    <!-- Services Grid -->
+    <section class="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-8 mb-24">
+        <div class="glass-card p-8 rounded-3xl">
+            <div class="w-12 h-12 feature-icon rounded-2xl flex items-center justify-center text-2xl mb-6">🎙️</div>
+            <h3 class="text-xl font-bold mb-3">Native Speakers</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">
+                We work with professional voice actors who are native speakers, ensuring perfect accent, slang usage, and cultural nuance.
+            </p>
+        </div>
+
+        <div class="glass-card p-8 rounded-3xl">
+            <div class="w-12 h-12 feature-icon rounded-2xl flex items-center justify-center text-2xl mb-6">🎭</div>
+            <h3 class="text-xl font-bold mb-3">Emotional Depth</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">
+                Unlike robotic synthesis, our manual dubs capture anger, excitement, sadness, and sarcasm—keeping your story impactful.
+            </p>
+        </div>
+
+        <div class="glass-card p-8 rounded-3xl">
+            <div class="w-12 h-12 feature-icon rounded-2xl flex items-center justify-center text-2xl mb-6">🔊</div>
+            <h3 class="text-xl font-bold mb-3">Dolby Mastering</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">
+                Manual recordings are professionally mixed back into your isolated atmosphere for a seamless, theater-ready finish.
+            </p>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="max-w-4xl mx-auto px-6 mb-24">
+        <div class="glass-card rounded-[40px] p-10 md:p-16 border-blue-500/20">
+            <h2 class="text-3xl font-bold mb-10 text-center">How Manual Dubbing Works</h2>
+            
+            <div class="space-y-12">
+                <div class="flex gap-6">
+                    <div class="text-blue-500 font-bold text-4xl opacity-20">01</div>
+                    <div>
+                        <h4 class="text-lg font-bold mb-2 uppercase tracking-wide">Isolation & Scripting</h4>
+                        <p class="text-gray-400 text-sm">We isolate the audio via our cloud AI and prepare a localized script reviewed by human linguists for flow and timing.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-6">
+                    <div class="text-blue-500 font-bold text-4xl opacity-20">02</div>
+                    <div>
+                        <h4 class="text-lg font-bold mb-2 uppercase tracking-wide">Studio Recording</h4>
+                        <p class="text-gray-400 text-sm">Professional talent records the tracks in high-fidelity environments, matching the mouth movements of the original video.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-6">
+                    <div class="text-blue-500 font-bold text-4xl opacity-20">03</div>
+                    <div>
+                        <h4 class="text-lg font-bold mb-2 uppercase tracking-wide">The "Klash" Overlay</h4>
+                        <p class="text-gray-400 text-sm">We layer the human performance over your original atmosphere, ensuring the music and foley sound exactly as they did in the source.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="max-w-2xl mx-auto px-6 text-center">
+        <h2 class="text-2xl font-bold mb-6">Ready to upgrade your production?</h2>
+        <a href="index.html" class="text-blue-500 font-bold hover:underline">Speak with a localization expert →</a>
+    </section>
+
+    <footer class="mt-32 text-center text-gray-600 text-[10px] border-t border-white/5 py-10">
+        <p>&copy; 2026 Videoify Klash Studio. All Manual Dubbing sessions are handled by our high-priority support team.</p>
+    </footer>
+
+</body>
+</html>
