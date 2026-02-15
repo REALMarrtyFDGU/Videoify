@@ -13,32 +13,55 @@
         .btn-primary { background-color: #3ea6ff; color: #000; font-weight: bold; padding: 10px 20px; border-radius: 4px; transition: 0.2s; }
         .btn-primary:hover { background-color: #65b8ff; }
         input { background: #121212; border: 1px solid #3e3e3e; color: white; padding: 8px; border-radius: 4px; }
+        
+        .nav-link { 
+            display: flex; 
+            align-items: center; 
+            padding: 10px 12px; 
+            color: #aaa; 
+            border-radius: 6px; 
+            transition: 0.2s; 
+            margin-bottom: 4px;
+            font-size: 14px;
+        }
+        .nav-link:hover { background: #2d2d2d; color: #fff; }
+        .nav-link.active { background: #3ea6ff20; color: #3ea6ff; font-weight: 600; }
     </style>
 </head>
 <body>
 
     <div class="sidebar flex flex-col p-4 border-r border-gray-800">
-        <h1 class="text-xl font-bold mb-8 text-blue-400">Videoify Klash</h1>
+        <h1 class="text-xl font-bold mb-8 text-blue-400 px-2">Videoify Klash</h1>
+        
+        <!-- Navigation container to be populated by JSON -->
+        <nav id="sidebar-nav" class="flex flex-col flex-1">
+            <!-- Dynamic links injected here -->
+        </nav>
+
+        <div class="mt-auto border-t border-gray-800 pt-4 px-2">
+            <p class="text-[10px] uppercase text-gray-500 font-bold tracking-widest">Version</p>
+            <p class="text-xs text-gray-400">v1.0.0-beta</p>
+        </div>
     </div>
 
     <div class="main-content">
         <header class="flex justify-between items-center mb-10">
             <h2 class="text-2xl font-semibold">Channel content</h2>
             <div class="flex gap-4">
-                <button onclick="uploadEmail()" class="bg-transparent border border-gray-600 px-4 py-2 rounded">Create</button>
+                <button onclick="uploadEmail()" class="bg-transparent border border-gray-600 px-4 py-2 rounded text-sm hover:bg-gray-800 transition">Create</button>
             </div>
         </header>
         
         <div class="card">
             <h3 class="text-lg font-bold mb-4">Manage Uploaded Content</h3>
-            <p class="text-gray-400 mb-6">Need help with a specific upload? Enter the Video ID below to contact the Videoify team.</p>
+            <p class="text-gray-400 mb-6 text-sm">Need help with a specific upload? Enter the Video ID below to contact the Videoify team.</p>
             
             <div class="flex items-center gap-4">
                 <div class="flex flex-col">
-                    <label class="text-xs uppercase text-gray-500 mb-1">Video ID</label>
+                    <label class="text-[10px] uppercase text-gray-500 mb-1 font-bold">Video ID</label>
                     <input type="text" id="videoId" placeholder="e.g. VK-8821" value="VK-7742">
                 </div>
-                <button onclick="sendSupportEmail()" class="btn-primary mt-5">
+                <button onclick="sendSupportEmail()" class="btn-primary mt-5 text-sm">
                     Send Support Email
                 </button>
             </div>
@@ -46,6 +69,30 @@
     </div>
 
     <script>
+        // Configuration JSON defining the sidebar structure
+        const sidebarConfig = {
+            "menuItems": [
+                { "label": "Help Center", "link": "https://realmarrtyfdgu.github.io/Videoify/klash/help", "active": false, "external": true }
+            ]
+        };
+
+        // Function to render sidebar from JSON
+        function renderSidebar() {
+            const navContainer = document.getElementById('sidebar-nav');
+            navContainer.innerHTML = ''; // Clear existing
+
+            sidebarConfig.menuItems.forEach(item => {
+                const a = document.createElement('a');
+                a.href = item.link;
+                if (item.external) a.target = "_blank";
+                
+                a.className = `nav-link ${item.active ? 'active' : ''}`;
+                a.innerHTML = `${item.label}`;
+                
+                navContainer.appendChild(a);
+            });
+        }
+
         function sendSupportEmail() {
             const videoId = document.getElementById('videoId').value;
             const recipient = "aerohutch@outlook.de";
@@ -59,12 +106,16 @@
             const body = `Hi Videoify Support,\n\nI am reaching out regarding my video with ID: ${videoId}.\n\n[Please describe your issue here]`;
             window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         }
+
         function uploadEmail() {
             const recipient = "aerohutch@outlook.de";
             const subject = `Upload a video`;
             const body = `Hi Videoify Support,\n\nI am reaching out to upload my video.\n\n[Please upload your video and fill in the below]\n\nTitle: [The video title]`;
             window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         }
+
+        // Initialize UI
+        window.onload = renderSidebar;
     </script>
 </body>
 </html>
