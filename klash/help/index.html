@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help Center | Videoify Klash</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            background-color: #0f0f0f; 
+            color: #ffffff; 
+            font-family: 'Inter', sans-serif; 
+            scroll-behavior: smooth;
+        }
+        .search-gradient {
+            background: linear-gradient(135deg, #1e1e1e 0%, #121212 100%);
+            border: 1px solid #333;
+        }
+        .help-card {
+            background-color: #1e1e1e;
+            border: 1px solid #2e2e2e;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .help-card:hover {
+            border-color: #3ea6ff;
+            transform: translateY(-4px);
+            background-color: #252525;
+        }
+        .category-pill {
+            background: #282828;
+            border: 1px solid #3e3e3e;
+            transition: 0.2s;
+        }
+        .category-pill:hover {
+            background: #3ea6ff;
+            color: #000;
+            border-color: #3ea6ff;
+        }
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+        details[open] summary svg {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="border-b border-gray-800 bg-[#0f0f0f]/80 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-blue-500 rounded flex items-center justify-center font-bold text-black italic">VK</div>
+                <span class="font-bold text-xl tracking-tight">Klash <span class="text-blue-500 text-sm align-top">Help</span></span>
+            </div>
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-400">
+                <a href="index.html" class="hover:text-white transition">Dashboard</a>
+                <a href="#guides" class="hover:text-white transition">Guides</a>
+                <a href="#faq" class="hover:text-white transition">FAQ</a>
+                <a href="mailto:aerohutch@outlook.de" class="bg-blue-500 text-black px-4 py-2 rounded-full font-bold hover:bg-blue-400 transition">Contact Support</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section with Search -->
+    <section class="py-20 px-6">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight">How can we help you today?</h1>
+            <div class="search-gradient p-2 rounded-2xl flex items-center shadow-2xl mb-8">
+                <div class="pl-4 pr-2 text-gray-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </div>
+                <input type="text" id="helpSearch" placeholder="Search for video IDs, upload issues, or dubbing guides..." class="bg-transparent w-full py-4 px-2 outline-none text-lg text-white">
+            </div>
+            <div class="flex flex-wrap justify-center gap-3">
+                <button onclick="applyFilter('Isolation')" class="category-pill px-4 py-1.5 rounded-full text-xs font-semibold">Video Isolation</button>
+                <button onclick="applyFilter('Billing')" class="category-pill px-4 py-1.5 rounded-full text-xs font-semibold">Billing</button>
+                <button onclick="applyFilter('API')" class="category-pill px-4 py-1.5 rounded-full text-xs font-semibold">API Access</button>
+                <button onclick="applyFilter('Voice')" class="category-pill px-4 py-1.5 rounded-full text-xs font-semibold">Voice Profiles</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Categories -->
+    <section id="guides" class="max-w-7xl mx-auto px-6 py-12">
+        <div id="guidesContainer" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Content dynamically generated from JSON -->
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="max-w-3xl mx-auto px-6 py-24">
+        <h2 class="text-3xl font-bold mb-10 text-center">Frequently Asked Questions</h2>
+        <div id="faqContainer" class="space-y-4">
+            <!-- FAQ dynamically generated from JSON -->
+        </div>
+    </section>
+
+    <!-- Footer / Contact CTA -->
+    <footer class="bg-[#121212] py-20 border-t border-gray-800 text-center px-6">
+        <h2 class="text-3xl font-bold mb-4">Still have questions?</h2>
+        <p class="text-gray-400 mb-10">Our support engineers are available 24/7 for high-priority creators.</p>
+        <div class="flex flex-col md:flex-row justify-center items-center gap-6">
+            <a href="mailto:aerohutch@outlook.de" class="flex items-center gap-3 bg-white text-black px-8 py-4 rounded-full font-bold hover:bg-gray-200 transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                </svg>
+                Email Support Team
+            </a>
+            <p class="text-gray-600 text-sm">Average response time: &lt; 2 hours</p>
+        </div>
+        <div class="mt-20 pt-10 border-t border-gray-800 flex justify-between items-center max-w-7xl mx-auto opacity-50 text-xs tracking-widest uppercase font-bold">
+            <span>© 2026 Videoify Klash</span>
+            <span>Privacy Policy • Terms of Service</span>
+        </div>
+    </footer>
+
+    <script>
+        // The Help Content Database
+        const helpDatabase = {
+            "guides": [
+                {
+                    "id": 1,
+                    "title": "Getting Started",
+                    "description": "New to Klash? Learn the basics of video uploading and our isolation pipeline.",
+                    "icon": "🚀",
+                    "color": "blue",
+                    "keys": ["start", "upload", "new", "basics", "isolation"]
+                },
+                {
+                    "id": 2,
+                    "title": "Professional Dubbing",
+                    "description": "Maximize impact with manual human dubs and high-fidelity vocal overlays.",
+                    "icon": "🎙️",
+                    "color": "purple",
+                    "keys": ["dubbing", "voice", "human", "overlay", "vocal"]
+                },
+                {
+                    "id": 3,
+                    "title": "Video Management",
+                    "description": "How to use your Video ID to track status and request surgical technical support.",
+                    "icon": "🛡️",
+                    "color": "green",
+                    "keys": ["id", "management", "status", "metadata", "support"]
+                }
+            ],
+            "faqs": [
+                {
+                    "question": "What is a Video ID (VK-XXXX)?",
+                    "answer": "The Video ID is your project's fingerprint. It allows our support team and automated systems to instantly locate your specific audio tracks, script translations, and isolation layers across our global nodes.",
+                    "keys": ["id", "vk", "project", "fingerprint"]
+                },
+                {
+                    "question": "How long does AI isolation take?",
+                    "answer": "Most videos under 10 minutes are isolated and transcribed within 3-5 minutes. Larger files or complex audio may take up to 15 minutes to ensure high-fidelity vocal separation.",
+                    "keys": ["time", "duration", "isolation", "ai", "speed"]
+                },
+                {
+                    "question": "Can I request a human review of a dub?",
+                    "answer": "Yes! If you are on the Creator Klash Pro plan, you can use the 'Support' button on your dashboard to request a linguistic review by native speakers.",
+                    "keys": ["human", "review", "pro", "plan", "native", "support"]
+                }
+            ]
+        };
+
+        function renderContent(searchQuery = "") {
+            const guidesContainer = document.getElementById('guidesContainer');
+            const faqContainer = document.getElementById('faqContainer');
+            const query = searchQuery.toLowerCase();
+
+            // Filter and render Guides
+            guidesContainer.innerHTML = helpDatabase.guides
+                .filter(item => 
+                    item.title.toLowerCase().includes(query) || 
+                    item.description.toLowerCase().includes(query) ||
+                    item.keys.some(k => k.includes(query))
+                )
+                .map(item => `
+                    <div class="help-card p-8 rounded-2xl cursor-pointer group">
+                        <div class="w-12 h-12 bg-${item.color}-500/10 rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-${item.color}-500 transition">${item.icon}</div>
+                        <h3 class="text-xl font-bold mb-3">${item.title}</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-4">${item.description}</p>
+                        <span class="text-blue-400 text-sm font-bold flex items-center gap-1 group-hover:gap-2 transition-all">Read Guides <span>→</span></span>
+                    </div>
+                `).join('');
+
+            // Filter and render FAQs
+            faqContainer.innerHTML = helpDatabase.faqs
+                .filter(item => 
+                    item.question.toLowerCase().includes(query) || 
+                    item.answer.toLowerCase().includes(query) ||
+                    item.keys.some(k => k.includes(query))
+                )
+                .map(item => `
+                    <details class="group bg-[#1a1a1a] rounded-xl border border-gray-800 transition-all overflow-hidden">
+                        <summary class="flex items-center justify-between p-6 cursor-pointer font-bold text-lg select-none">
+                            ${item.question}
+                            <svg class="w-5 h-5 text-gray-500 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </summary>
+                        <div class="px-6 pb-6 text-gray-400 leading-relaxed text-sm">
+                            ${item.answer}
+                        </div>
+                    </details>
+                `).join('');
+        }
+
+        function applyFilter(key) {
+            document.getElementById('helpSearch').value = key;
+            renderContent(key);
+            document.getElementById('guides').scrollIntoView();
+        }
+
+        // Search Input Listener
+        document.getElementById('helpSearch').addEventListener('input', (e) => {
+            renderContent(e.target.value);
+        });
+
+        // Initial Render
+        window.onload = () => renderContent();
+    </script>
+</body>
+</html>
