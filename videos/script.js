@@ -8,7 +8,7 @@ async function initVideoify() {
     }
 
     const jsonUrl = `https://realmarrtyfdgu.github.io/Videoify/videos/${videoId}/dubs/languages.json`;
-    const basePath = `https://realmarrtyfdgu.github.io/Videoify/videos/${videoId}/dubs/`;
+    const basePath = `https://realmarrtyfdgu.github.io/Videoify/videos/${videoId}/`;
 
     try {
         const response = await fetch(jsonUrl);
