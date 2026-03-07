@@ -1,7 +1,7 @@
 async function initVideoify() {
     const urlParams = new URLSearchParams(window.location.search);
     const videoId = urlParams.get('id');
-    let targetLang = urlParams.get('lang')?.toLowerCase();
+    const targetLang = urlParams.get('lang')?.toLowerCase();
 
     if (!videoId) return;
 
@@ -18,38 +18,42 @@ async function initVideoify() {
 
         selector.innerHTML = '';
         const entries = Object.entries(languages);
-        let initialVideo = null;
+        
+        let matchedVideo = null;
+        let originalVideo = null;
 
-        entries.forEach(([displayName, fileName], index) => {
+        entries.forEach(([displayName, fileName]) => {
             const option = document.createElement('option');
             const fullUrl = `${basePath}${fileName}.mp4`;
             option.value = fullUrl;
             option.textContent = displayName;
-            // Store the "clean" name for URL updating later
-            option.dataset.langName = displayName.split(' ')[0].toLowerCase(); 
             selector.appendChild(option);
 
-            const isMatch = targetLang && displayName.toLowerCase().includes(targetLang);
+            // 1. Check if this is the 'Original' version to set as our ultimate backup
+            if (displayName.toLowerCase().includes('original')) {
+                originalVideo = { url: fullUrl, index: selector.options.length - 1 };
+            }
 
-            if (isMatch) {
-                initialVideo = fullUrl;
-                option.selected = true;
-            } else if (index === 0 && !initialVideo) {
-                initialVideo = fullUrl;
+            // 2. Check if this matches the URL ?lang= parameter
+            if (targetLang && displayName.toLowerCase().includes(targetLang)) {
+                matchedVideo = { url: fullUrl, index: selector.options.length - 1 };
             }
         });
 
-        iframe.src = initialVideo;
+        if (matchedVideo) {
+            iframe.src = matchedVideo.url;
+            selector.selectedIndex = matchedVideo.index;
+        } else if (originalVideo) {
+            iframe.src = originalVideo.url;
+            selector.selectedIndex = originalVideo.index;
+        } else {
+            iframe.src = `${basePath}${entries[0][1]}.mp4`;
+            selector.selectedIndex = 0;
+        }
 
-        // --- THE POLISH: Update URL on Change ---
         selector.addEventListener('change', (e) => {
-            const selectedOption = e.target.options[e.target.selectedIndex];
             iframe.src = e.target.value;
-
-            // Get a clean version of the language name (e.g., "Nederlands")
-            const newLang = selectedOption.dataset.langName;
-            
-            // Update the URL without reloading the page
+            const newLang = e.target.options[e.target.selectedIndex].textContent.split(' ')[0].toLowerCase();
             const newUrl = new URL(window.location);
             newUrl.searchParams.set('lang', newLang);
             window.history.replaceState({}, '', newUrl);
