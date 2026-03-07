@@ -3,10 +3,10 @@ async function initVideoify() {
     const videoId = urlParams.get('id');
     const targetLang = urlParams.get('lang')?.toLowerCase();
 
-    if (!videoId) {
-        console.error("No video ID found in URL.");
-        return;
-    }
+    console.log("Video ID:", videoId);
+    console.log("Target Lang:", targetLang);
+
+    if (!videoId) return;
 
     const jsonUrl = `https://realmarrtyfdgu.github.io/Videoify/videos/${videoId}/dubs/languages.json`;
     const basePath = `https://realmarrtyfdgu.github.io/Videoify/videos/${videoId}/`;
@@ -14,44 +14,48 @@ async function initVideoify() {
     try {
         const response = await fetch(jsonUrl);
         const languages = await response.json();
+        console.log("JSON Loaded:", languages);
         
         const selector = document.getElementById('language-selector');
         const iframe = document.getElementById('video-frame');
-        selector.innerHTML = '';
         
+        if (!selector || !iframe) {
+            console.error("Could not find selector or iframe in HTML!");
+            return;
+        }
+
+        selector.innerHTML = '';
         const entries = Object.entries(languages);
-        let videoToLoad = null;
+        let matchedSource = null;
 
         entries.forEach(([displayName, fileName], index) => {
             const option = document.createElement('option');
             const fullUrl = `${basePath}${fileName}.mp4`;
-            
             option.value = fullUrl;
             option.textContent = displayName;
             selector.appendChild(option);
 
-            const isMatch = targetLang && displayName.toLowerCase().includes(targetLang);
-
-            if (isMatch) {
-                videoToLoad = fullUrl;
+            // Improved check: matches "Nederlands" or "nederlands"
+            if (targetLang && displayName.toLowerCase().includes(targetLang)) {
+                matchedSource = fullUrl;
                 option.selected = true;
-            } else if (index === 0 && !videoToLoad) {
-                videoToLoad = fullUrl;
+                console.log("Found match:", displayName);
             }
         });
 
-        if (videoToLoad) {
-            iframe.src = videoToLoad;
-        }
+        // Use match if found, otherwise default to first entry
+        const finalUrl = matchedSource || `${basePath}${entries[0][1]}.mp4`;
+        iframe.src = finalUrl;
+        console.log("Setting iframe src to:", finalUrl);
 
         selector.addEventListener('change', (e) => {
-            if (e.target.value) {
-                iframe.src = e.target.value;
-            }
+            iframe.src = e.target.value;
         });
+
     } catch (error) {
-        console.error("Error loading dubs:", error);
+        console.error("Failed to load or parse JSON:", error);
     }
 }
 
-initVideoify();
+// Ensures HTML is ready before running
+window.addEventListener('DOMContentLoaded', initVideoify);
