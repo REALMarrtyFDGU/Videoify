@@ -1,6 +1,7 @@
 async function initVideoify() {
     const urlParams = new URLSearchParams(window.location.search);
     const videoId = urlParams.get('id');
+    const targetLang = urlParams.get('lang');
 
     if (!videoId) {
         console.error("No video ID found in URL.");
@@ -17,16 +18,30 @@ async function initVideoify() {
         const selector = document.getElementById('language-selector');
         const iframe = document.getElementById('video-frame');
         selector.innerHTML = '';
+        
         const entries = Object.entries(languages);
+        let videoToLoad = null;
+
         entries.forEach(([displayName, fileName], index) => {
             const option = document.createElement('option');
-            option.value = `${basePath}${fileName}.mp4`;
+            const fullUrl = `${basePath}${fileName}.mp4`;
+            
+            option.value = fullUrl;
             option.textContent = displayName;
             selector.appendChild(option);
-            if (index === 0) {
-                iframe.src = option.value;
+
+            if (targetLang && displayName.toLowerCase() === targetLang.toLowerCase()) {
+                videoToLoad = fullUrl;
+                option.selected = true;
+            } else if (index === 0 && !videoToLoad) {
+                videoToLoad = fullUrl;
             }
         });
+
+        if (videoToLoad) {
+            iframe.src = videoToLoad;
+        }
+
         selector.addEventListener('change', (e) => {
             if (e.target.value) {
                 iframe.src = e.target.value;
