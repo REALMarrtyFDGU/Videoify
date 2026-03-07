@@ -1,7 +1,7 @@
 async function initVideoify() {
     const urlParams = new URLSearchParams(window.location.search);
     const videoId = urlParams.get('id');
-    const targetLang = urlParams.get('lang');
+    const targetLang = urlParams.get('lang')?.toLowerCase();
 
     if (!videoId) {
         console.error("No video ID found in URL.");
@@ -30,7 +30,9 @@ async function initVideoify() {
             option.textContent = displayName;
             selector.appendChild(option);
 
-            if (targetLang && displayName.toLowerCase() === targetLang.toLowerCase()) {
+            const isMatch = targetLang && displayName.toLowerCase().includes(targetLang);
+
+            if (isMatch) {
                 videoToLoad = fullUrl;
                 option.selected = true;
             } else if (index === 0 && !videoToLoad) {
