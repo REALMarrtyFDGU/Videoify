@@ -1,10 +1,7 @@
 async function initVideoify() {
     const urlParams = new URLSearchParams(window.location.search);
     const videoId = urlParams.get('id');
-    const targetLang = urlParams.get('lang')?.toLowerCase();
-
-    console.log("Video ID:", videoId);
-    console.log("Target Lang:", targetLang);
+    let targetLang = urlParams.get('lang')?.toLowerCase();
 
     if (!videoId) return;
 
@@ -14,48 +11,53 @@ async function initVideoify() {
     try {
         const response = await fetch(jsonUrl);
         const languages = await response.json();
-        console.log("JSON Loaded:", languages);
         
         const selector = document.getElementById('language-selector');
         const iframe = document.getElementById('video-frame');
-        
-        if (!selector || !iframe) {
-            console.error("Could not find selector or iframe in HTML!");
-            return;
-        }
+        if (!selector || !iframe) return;
 
         selector.innerHTML = '';
         const entries = Object.entries(languages);
-        let matchedSource = null;
+        let initialVideo = null;
 
         entries.forEach(([displayName, fileName], index) => {
             const option = document.createElement('option');
             const fullUrl = `${basePath}${fileName}.mp4`;
             option.value = fullUrl;
             option.textContent = displayName;
+            // Store the "clean" name for URL updating later
+            option.dataset.langName = displayName.split(' ')[0].toLowerCase(); 
             selector.appendChild(option);
 
-            // Improved check: matches "Nederlands" or "nederlands"
-            if (targetLang && displayName.toLowerCase().includes(targetLang)) {
-                matchedSource = fullUrl;
+            const isMatch = targetLang && displayName.toLowerCase().includes(targetLang);
+
+            if (isMatch) {
+                initialVideo = fullUrl;
                 option.selected = true;
-                console.log("Found match:", displayName);
+            } else if (index === 0 && !initialVideo) {
+                initialVideo = fullUrl;
             }
         });
 
-        // Use match if found, otherwise default to first entry
-        const finalUrl = matchedSource || `${basePath}${entries[0][1]}.mp4`;
-        iframe.src = finalUrl;
-        console.log("Setting iframe src to:", finalUrl);
+        iframe.src = initialVideo;
 
+        // --- THE POLISH: Update URL on Change ---
         selector.addEventListener('change', (e) => {
+            const selectedOption = e.target.options[e.target.selectedIndex];
             iframe.src = e.target.value;
+
+            // Get a clean version of the language name (e.g., "Nederlands")
+            const newLang = selectedOption.dataset.langName;
+            
+            // Update the URL without reloading the page
+            const newUrl = new URL(window.location);
+            newUrl.searchParams.set('lang', newLang);
+            window.history.replaceState({}, '', newUrl);
         });
 
     } catch (error) {
-        console.error("Failed to load or parse JSON:", error);
+        console.error("Error:", error);
     }
 }
 
-// Ensures HTML is ready before running
 window.addEventListener('DOMContentLoaded', initVideoify);
