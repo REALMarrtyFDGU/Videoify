@@ -5,15 +5,23 @@ async function initVideoify() {
 
     if (!videoId) return;
 
-    const jsonUrl = `https://realmarrtyfdgu.github.io/Videoify/videos/${videoId}/dubs/languages.json`;
-    const basePath = `https://realmarrtyfdgu.github.io/Videoify/videos/${videoId}/`;
+    const base = `https://realmarrtyfdgu.github.io/Videoify/videos/${videoId}/`;
+    const langUrl = `${base}dubs/languages.json`;
+    const titleUrl = `${base}dubs/title.json`;
 
     try {
-        const response = await fetch(jsonUrl);
-        const languages = await response.json();
+        const [langRes, titleRes] = await Promise.all([
+            fetch(langUrl),
+            fetch(titleUrl)
+        ]);
+
+        const languages = await langRes.json();
+        const titles = await titleRes.json();
         
         const selector = document.getElementById('language-selector');
         const iframe = document.getElementById('video-frame');
+        const displayTitle = document.getElementById('current-video-title');
+        
         if (!selector || !iframe) return;
 
         selector.innerHTML = '';
@@ -24,43 +32,56 @@ async function initVideoify() {
 
         entries.forEach(([displayName, fileName]) => {
             const option = document.createElement('option');
-            const fullUrl = `${basePath}${fileName}.mp4`;
+            const fullUrl = `${base}${fileName}.mp4`;
+            
+            // Logic: Strip country from locale
+            // If fileName is 'bowalkingde-DE', we get 'de-DE', then strip to 'de'
+            const fullLocale = fileName.match(/[a-z]{2}-[A-Z]{2}$/) ? fileName.slice(-5) : fileName.slice(-2);
+            const langCode = fullLocale.split('-')[0].toLowerCase();
+            
             option.value = fullUrl;
+            option.dataset.title = titles[langCode] || "Video";
             option.textContent = displayName;
             selector.appendChild(option);
 
-            // 1. Check if this is the 'Original' version to set as our ultimate backup
             if (displayName.toLowerCase().includes('original')) {
-                originalVideo = { url: fullUrl, index: selector.options.length - 1 };
+                originalVideo = { url: fullUrl, index: selector.options.length - 1, title: option.dataset.title };
             }
 
-            // 2. Check if this matches the URL ?lang= parameter
             if (targetLang && displayName.toLowerCase().includes(targetLang)) {
-                matchedVideo = { url: fullUrl, index: selector.options.length - 1 };
+                matchedVideo = { url: fullUrl, index: selector.options.length - 1, title: option.dataset.title };
             }
         });
 
+        const updateDisplay = (url, index, title) => {
+            iframe.src = url;
+            selector.selectedIndex = index;
+            displayTitle.textContent = title;
+        };
+
+        // Set initial state
         if (matchedVideo) {
-            iframe.src = matchedVideo.url;
-            selector.selectedIndex = matchedVideo.index;
+            updateDisplay(matchedVideo.url, matchedVideo.index, matchedVideo.title);
         } else if (originalVideo) {
-            iframe.src = originalVideo.url;
-            selector.selectedIndex = originalVideo.index;
-        } else {
-            iframe.src = `${basePath}${entries[0][1]}.mp4`;
-            selector.selectedIndex = 0;
+            updateDisplay(originalVideo.url, originalVideo.index, originalVideo.title);
+        } else if (entries.length > 0) {
+            const first = selector.options[0];
+            updateDisplay(first.value, 0, first.dataset.title);
         }
 
         selector.addEventListener('change', (e) => {
-            iframe.src = e.target.value;
-            const newLang = e.target.options[e.target.selectedIndex].textContent.split(' ')[0].toLowerCase();
+            const selected = e.target.options[e.target.selectedIndex];
+            updateDisplay(e.target.value, e.target.selectedIndex, selected.dataset.title);
+            
+            // Sync URL parameter
+            const newLang = selected.textContent.split(' ')[0].toLowerCase();
             const newUrl = new URL(window.location);
             newUrl.searchParams.set('lang', newLang);
             window.history.replaceState({}, '', newUrl);
         });
 
     } catch (error) {
-        console.error("Error:", error);
+        console.error("Videoify Error:", error);
     }
 }
 
